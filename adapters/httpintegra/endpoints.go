@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/JoseLuis21/integradte-sdk-go/domain"
+	"github.com/IntegraDte/integradte-sdk-go/domain"
 )
 
 func (c *Client) CreateDocument(ctx context.Context, req domain.CreateDocumentRequest) (domain.APIResponse, error) {

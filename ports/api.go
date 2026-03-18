@@ -3,7 +3,7 @@ package ports
 import (
 	"context"
 
-	"github.com/JoseLuis21/integradte-sdk-go/domain"
+	"github.com/IntegraDte/integradte-sdk-go/domain"
 )
 
 // IntegraDTEAPI defines the outbound port.

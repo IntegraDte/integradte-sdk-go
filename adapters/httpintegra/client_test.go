@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/JoseLuis21/integradte-sdk-go/domain"
+	"github.com/IntegraDte/integradte-sdk-go/domain"
 )
 
 func TestCreateDocumentSendsHeaders(t *testing.T) {

@@ -3,8 +3,8 @@ package application
 import (
 	"context"
 
-	"github.com/JoseLuis21/integradte-sdk-go/domain"
-	"github.com/JoseLuis21/integradte-sdk-go/ports"
+	"github.com/IntegraDte/integradte-sdk-go/domain"
+	"github.com/IntegraDte/integradte-sdk-go/ports"
 )
 
 // Service is the application layer orchestrating use-cases.

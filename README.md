@@ -5,13 +5,13 @@ SDK en Go para consumir la API de [IntegraDTE](https://api.integradte.cl), con a
 ## Instalacion
 
 ```bash
-go get github.com/JoseLuis21/integradte-sdk-go
+go get github.com/IntegraDte/integradte-sdk-go
 ```
 
 Para instalar una version especifica:
 
 ```bash
-go get github.com/JoseLuis21/integradte-sdk-go@v0.1.0
+go get github.com/IntegraDte/integradte-sdk-go@v0.1.0
 ```
 
 ## Estructura hexagonal
@@ -30,9 +30,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/JoseLuis21/integradte-sdk-go/adapters/httpintegra"
-	"github.com/JoseLuis21/integradte-sdk-go/application"
-	"github.com/JoseLuis21/integradte-sdk-go/domain"
+	"github.com/IntegraDte/integradte-sdk-go/adapters/httpintegra"
+	"github.com/IntegraDte/integradte-sdk-go/application"
+	"github.com/IntegraDte/integradte-sdk-go/domain"
 )
 
 func main() {

@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/JoseLuis21/integradte-sdk-go/domain"
+	"github.com/IntegraDte/integradte-sdk-go/domain"
 )
 
 const (
