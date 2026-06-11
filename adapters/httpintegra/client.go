@@ -151,6 +151,59 @@ func (c *Client) doJSON(
 	return out, nil
 }
 
+func (c *Client) doJSONInto(
+	ctx context.Context,
+	method string,
+	route string,
+	body any,
+	out any,
+) error {
+	var payload io.Reader
+	if body != nil {
+		raw, err := json.Marshal(body)
+		if err != nil {
+			return fmt.Errorf("integradte: marshal request: %w", err)
+		}
+		payload = bytes.NewBuffer(raw)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, method, c.buildURL(route, nil), payload)
+	if err != nil {
+		return fmt.Errorf("integradte: create request: %w", err)
+	}
+
+	if strings.TrimSpace(c.apiKey) != "" {
+		req.Header.Set("x-api-key", c.apiKey)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", c.userAgent)
+	if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
+
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("integradte: do request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	rawResp, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("integradte: read response: %w", err)
+	}
+	if resp.StatusCode < http.StatusOK || resp.StatusCode >= http.StatusMultipleChoices {
+		return &APIError{StatusCode: resp.StatusCode, Body: string(rawResp)}
+	}
+	if len(rawResp) == 0 {
+		return nil
+	}
+	if err := json.Unmarshal(rawResp, out); err != nil {
+		return fmt.Errorf("integradte: decode response: %w", err)
+	}
+
+	return nil
+}
+
 func withIdempotency(idempotencyKey string) map[string]string {
 	if strings.TrimSpace(idempotencyKey) == "" {
 		return nil

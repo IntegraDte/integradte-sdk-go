@@ -107,21 +107,13 @@ resp, err := service.CreateDocument(context.Background(), req)
 
 ## Endpoints implementados
 
-- `CreateDocument`
-- `GetDocument`
-- `GetDocumentStats`
-- `CreateCession`
-- `GeneratePDF`
-- `CreateBusiness`
-- `UpdateBusiness`
-- `UploadCertificate`
-- `GetCertificateInfo`
-- `GetMe`
-- `CreatePurchase`
-- `GetNumerationSummary`
-- `GetLastUsedFolio`
-- `UploadNumeration`
-- `DeleteNumeration`
+- Usuarios y empresas: `GetMe`, `CreateBusiness`, `ListBusinesses`, `GetBusiness`, `UpdateBusiness`, `EnableProductionMode`, `EnableCertificationMode`
+- Documentos: `CreateDocument`, `ListDocuments`, `GetDocument`, `GetDocumentStats`, `GetDocumentStatsWithFilter`, `SyncDocument`, `RequeueDocument`, `RequeueOfflineDocument`, `RequeueOfflineDocumentStatus`
+- Cesiones y PDF: `CreateCession`, `GeneratePDF`
+- Certificados: `UploadCertificate`, `GetCertificateInfo`, `GetCurrentCertificate`
+- Billing y compras: `GetBillingBalance`, `ListBillingPayments`, `CreatePurchase`, `ListPurchaseAcknowledgments`
+- Numeraciones: `GetNumerationSummary`, `GetLastUsedFolio`, `UploadNumeration`, `DeleteNumeration`, `RequestNumbers`, `RequestNumerations`
+- Licencias offline: `CreateLicense`, `ListLicenses`, `GetLicense`, `ListLicenseDevices`, `EnableLicense`, `DisableLicense`, `RevokeLicense`, `ActivateLicense`, `RefreshLicense`
 
 ## Versionado y releases automaticos
 
