@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.1.4...integradte-sdk-go-v0.1.5) (2026-06-11)
+
+
+### Features
+
+* **api:** add new endpoints for document and business management ([a028d35](https://github.com/IntegraDte/integradte-sdk-go/commit/a028d35ccaf376a31d41fac29a0411c7b661eb3f))
+
 ## [0.1.4](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.1.3...integradte-sdk-go-v0.1.4) (2026-03-18)
 
 ### Features
