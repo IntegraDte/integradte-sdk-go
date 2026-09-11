@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.2.0...integradte-sdk-go-v0.2.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* **api:** point CreatePurchase and RequestNumbers at the current API routes ([9b2aa4c](https://github.com/IntegraDte/integradte-sdk-go/commit/9b2aa4c4ef5d3897992ab98a25234b5f22d0880c))
+* **api:** point CreatePurchase and RequestNumbers at the current API routes ([6311e90](https://github.com/IntegraDte/integradte-sdk-go/commit/6311e90614bcdfed11917b4c081890250d273b1a))
+
 ## [0.2.0](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.1.5...integradte-sdk-go-v0.2.0) (2026-09-11)
 
 
