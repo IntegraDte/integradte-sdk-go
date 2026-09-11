@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.1.5...integradte-sdk-go-v0.2.0) (2026-09-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** removed from httpintegra.Client, ports.IntegraDTEAPI and application.Service: CreateLicense, ListLicenses, GetLicense, ListLicenseDevices, EnableLicense, DisableLicense, RevokeLicense, ActivateLicense, RefreshLicense, SyncDocument and GetCurrentCertificate. Removed domain types: CreateLicenseRequest, LicenseActionRequest, LicenseBusiness, LicensePayload, SignedLicense, ActivateLicenseRequest, RefreshLicenseRequest and SyncDocumentRequest. GetCertificateInfo keeps its signature, but its data is now only {"has_valid_certificate": bool} (domain.CertificateInfo): the certificate details are gone, and a business without a certificate gets false with status 200 instead of a 400 error.
+
+### Features
+
+* **api:** sync with the public API, drop licenses, sync and current certificate ([1dacd8a](https://github.com/IntegraDte/integradte-sdk-go/commit/1dacd8aa997039b85efffbd3068299a4048ccd8f))
+
 ## [0.1.5](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.1.4...integradte-sdk-go-v0.1.5) (2026-06-11)
 
 
