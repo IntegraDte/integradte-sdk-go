@@ -90,7 +90,7 @@ func (c *Client) ListBillingPayments(ctx context.Context, filter domain.PaymentF
 }
 
 func (c *Client) CreatePurchase(ctx context.Context, req domain.CreatePurchaseRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, "/api/v1/purchases", nil, req, withIdempotency(req.IdempotencyKey))
+	return c.doJSON(ctx, http.MethodPost, "/api/v1/purchase-acknowledgments", nil, req, withIdempotency(req.IdempotencyKey))
 }
 
 func (c *Client) ListPurchaseAcknowledgments(ctx context.Context, filter domain.PurchaseAcknowledgmentFilter) (domain.APIResponse, error) {
@@ -123,7 +123,7 @@ func (c *Client) DeleteNumeration(ctx context.Context, id string) (domain.APIRes
 
 func (c *Client) RequestNumbers(ctx context.Context, req domain.RequestNumbersRequest) ([]domain.NumberRange, error) {
 	var ranges []domain.NumberRange
-	if err := c.doJSONInto(ctx, http.MethodPost, "/v1/numbers/request", req, &ranges); err != nil {
+	if err := c.doJSONInto(ctx, http.MethodPost, "/api/v1/numerations/request", req, &ranges); err != nil {
 		return nil, err
 	}
 	return ranges, nil

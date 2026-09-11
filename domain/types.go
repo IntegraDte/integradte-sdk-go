@@ -135,7 +135,7 @@ type RequestNumbersRequest struct {
 	Quantity     int `json:"quantity"`
 }
 
-// NumberRange is a reserved folio range returned by /v1/numbers/request.
+// NumberRange is a reserved folio range returned by /numerations/request.
 type NumberRange struct {
 	DocumentType   int    `json:"document_type"`
 	InitialFolio   int    `json:"folio_inicial"`
