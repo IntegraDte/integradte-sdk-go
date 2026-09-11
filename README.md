@@ -108,12 +108,26 @@ resp, err := service.CreateDocument(context.Background(), req)
 ## Endpoints implementados
 
 - Usuarios y empresas: `GetMe`, `CreateBusiness`, `ListBusinesses`, `GetBusiness`, `UpdateBusiness`, `EnableProductionMode`, `EnableCertificationMode`
-- Documentos: `CreateDocument`, `ListDocuments`, `GetDocument`, `GetDocumentStats`, `GetDocumentStatsWithFilter`, `SyncDocument`, `RequeueDocument`, `RequeueOfflineDocument`, `RequeueOfflineDocumentStatus`
+- Documentos: `CreateDocument`, `ListDocuments`, `GetDocument`, `GetDocumentStats`, `GetDocumentStatsWithFilter`, `RequeueDocument`, `RequeueOfflineDocument`, `RequeueOfflineDocumentStatus`
 - Cesiones y PDF: `CreateCession`, `GeneratePDF`
-- Certificados: `UploadCertificate`, `GetCertificateInfo`, `GetCurrentCertificate`
+- Certificados: `UploadCertificate`, `GetCertificateInfo`
 - Billing y compras: `GetBillingBalance`, `ListBillingPayments`, `CreatePurchase`, `ListPurchaseAcknowledgments`
 - Numeraciones: `GetNumerationSummary`, `GetLastUsedFolio`, `UploadNumeration`, `DeleteNumeration`, `RequestNumbers`, `RequestNumerations`
-- Licencias offline: `CreateLicense`, `ListLicenses`, `GetLicense`, `ListLicenseDevices`, `EnableLicense`, `DisableLicense`, `RevokeLicense`, `ActivateLicense`, `RefreshLicense`
+
+## Certificado digital
+
+`GetCertificateInfo` solo indica si la empresa puede firmar: `data.has_valid_certificate` es `true` cuando la empresa tiene certificado, abre con su clave y no esta vencido (la misma validacion que usa la emision). Si la empresa no tiene certificado responde `false`, no un error. La API no devuelve datos del certificado ni su clave privada; el tipo `domain.CertificateInfo` describe el contenido de `data`.
+
+```go
+resp, err := service.GetCertificateInfo(context.Background())
+if err != nil {
+	panic(err)
+}
+
+data, _ := resp["data"].(map[string]any)
+valid, _ := data["has_valid_certificate"].(bool)
+fmt.Println("certificado valido:", valid)
+```
 
 ## Versionado y releases automaticos
 

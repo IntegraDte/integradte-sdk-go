@@ -76,10 +76,6 @@ func (s *Service) GetCertificateInfo(ctx context.Context) (domain.APIResponse, e
 	return s.api.GetCertificateInfo(ctx)
 }
 
-func (s *Service) GetCurrentCertificate(ctx context.Context) (domain.APIResponse, error) {
-	return s.api.GetCurrentCertificate(ctx)
-}
-
 func (s *Service) GetMe(ctx context.Context) (domain.APIResponse, error) {
 	return s.api.GetMe(ctx)
 }
@@ -116,52 +112,12 @@ func (s *Service) DeleteNumeration(ctx context.Context, id string) (domain.APIRe
 	return s.api.DeleteNumeration(ctx, id)
 }
 
-func (s *Service) CreateLicense(ctx context.Context, req domain.CreateLicenseRequest) (domain.APIResponse, error) {
-	return s.api.CreateLicense(ctx, req)
-}
-
-func (s *Service) ListLicenses(ctx context.Context) (domain.APIResponse, error) {
-	return s.api.ListLicenses(ctx)
-}
-
-func (s *Service) GetLicense(ctx context.Context, id string) (domain.APIResponse, error) {
-	return s.api.GetLicense(ctx, id)
-}
-
-func (s *Service) ListLicenseDevices(ctx context.Context, id string) (domain.APIResponse, error) {
-	return s.api.ListLicenseDevices(ctx, id)
-}
-
-func (s *Service) EnableLicense(ctx context.Context, id string, req domain.LicenseActionRequest) (domain.APIResponse, error) {
-	return s.api.EnableLicense(ctx, id, req)
-}
-
-func (s *Service) DisableLicense(ctx context.Context, id string, req domain.LicenseActionRequest) (domain.APIResponse, error) {
-	return s.api.DisableLicense(ctx, id, req)
-}
-
-func (s *Service) RevokeLicense(ctx context.Context, id string, req domain.LicenseActionRequest) (domain.APIResponse, error) {
-	return s.api.RevokeLicense(ctx, id, req)
-}
-
-func (s *Service) ActivateLicense(ctx context.Context, req domain.ActivateLicenseRequest) (domain.APIResponse, error) {
-	return s.api.ActivateLicense(ctx, req)
-}
-
-func (s *Service) RefreshLicense(ctx context.Context, req domain.RefreshLicenseRequest) (domain.APIResponse, error) {
-	return s.api.RefreshLicense(ctx, req)
-}
-
 func (s *Service) RequestNumbers(ctx context.Context, req domain.RequestNumbersRequest) ([]domain.NumberRange, error) {
 	return s.api.RequestNumbers(ctx, req)
 }
 
 func (s *Service) RequestNumerations(ctx context.Context, req domain.RequestNumerationsRequest) (domain.APIResponse, error) {
 	return s.api.RequestNumerations(ctx, req)
-}
-
-func (s *Service) SyncDocument(ctx context.Context, req domain.SyncDocumentRequest) (domain.APIResponse, error) {
-	return s.api.SyncDocument(ctx, req)
 }
 
 func (s *Service) RequeueDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {

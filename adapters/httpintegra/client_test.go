@@ -131,38 +131,11 @@ func TestNewEndpointRoutes(t *testing.T) {
 			},
 		},
 		{
-			name:       "current certificate",
+			name:       "certificate info",
 			wantMethod: http.MethodGet,
-			wantPath:   "/api/v1/certificates/current",
+			wantPath:   "/api/v1/business/certificate-info",
 			call: func(ctx context.Context, c *Client) error {
-				_, err := c.GetCurrentCertificate(ctx)
-				return err
-			},
-		},
-		{
-			name:       "license devices",
-			wantMethod: http.MethodGet,
-			wantPath:   "/api/v1/licenses/license-1/devices",
-			call: func(ctx context.Context, c *Client) error {
-				_, err := c.ListLicenseDevices(ctx, "license-1")
-				return err
-			},
-		},
-		{
-			name:       "disable license",
-			wantMethod: http.MethodPost,
-			wantPath:   "/api/v1/licenses/license-1/disable",
-			call: func(ctx context.Context, c *Client) error {
-				_, err := c.DisableLicense(ctx, "license-1", domain.LicenseActionRequest{Reason: "payment_pending"})
-				return err
-			},
-		},
-		{
-			name:       "sync document",
-			wantMethod: http.MethodPost,
-			wantPath:   "/api/v1/documents/sync",
-			call: func(ctx context.Context, c *Client) error {
-				_, err := c.SyncDocument(ctx, domain.SyncDocumentRequest{DocumentID: "document-1"})
+				_, err := c.GetCertificateInfo(ctx)
 				return err
 			},
 		},
@@ -195,6 +168,34 @@ func TestNewEndpointRoutes(t *testing.T) {
 				t.Fatalf("call endpoint: %v", err)
 			}
 		})
+	}
+}
+
+func TestGetCertificateInfoWithoutCertificateIsNotAnError(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{
+			"success": true,
+			"message": "certificate info retrieved successfully",
+			"data":    domain.CertificateInfo{HasValidCertificate: false},
+		})
+	}))
+	defer ts.Close()
+
+	c, err := New(Config{APIKey: "test-key", BaseURL: ts.URL})
+	if err != nil {
+		t.Fatalf("new client: %v", err)
+	}
+
+	resp, err := c.GetCertificateInfo(context.Background())
+	if err != nil {
+		t.Fatalf("get certificate info: %v", err)
+	}
+	data, ok := resp["data"].(map[string]any)
+	if !ok {
+		t.Fatalf("data = %#v; want object", resp["data"])
+	}
+	if got, ok := data["has_valid_certificate"].(bool); !ok || got {
+		t.Fatalf("has_valid_certificate = %#v; want false", data["has_valid_certificate"])
 	}
 }
 

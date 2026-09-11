@@ -103,10 +103,6 @@ func (c *Client) ListPurchaseAcknowledgments(ctx context.Context, filter domain.
 	return c.doJSON(ctx, http.MethodGet, "/api/v1/purchase-acknowledgments", query, nil, nil)
 }
 
-func (c *Client) GetCurrentCertificate(ctx context.Context) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodGet, "/api/v1/certificates/current", nil, nil, nil)
-}
-
 func (c *Client) GetNumerationSummary(ctx context.Context) (domain.APIResponse, error) {
 	return c.doJSON(ctx, http.MethodGet, "/api/v1/numerations/summary", nil, nil, nil)
 }
@@ -125,42 +121,6 @@ func (c *Client) DeleteNumeration(ctx context.Context, id string) (domain.APIRes
 	return c.doJSON(ctx, http.MethodDelete, fmt.Sprintf("/api/v1/numerations/%s", id), nil, nil, nil)
 }
 
-func (c *Client) CreateLicense(ctx context.Context, req domain.CreateLicenseRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, "/api/v1/licenses", nil, req, nil)
-}
-
-func (c *Client) ListLicenses(ctx context.Context) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodGet, "/api/v1/licenses", nil, nil, nil)
-}
-
-func (c *Client) GetLicense(ctx context.Context, id string) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodGet, fmt.Sprintf("/api/v1/licenses/%s", id), nil, nil, nil)
-}
-
-func (c *Client) ListLicenseDevices(ctx context.Context, id string) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodGet, fmt.Sprintf("/api/v1/licenses/%s/devices", id), nil, nil, nil)
-}
-
-func (c *Client) EnableLicense(ctx context.Context, id string, req domain.LicenseActionRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, fmt.Sprintf("/api/v1/licenses/%s/enable", id), nil, req, nil)
-}
-
-func (c *Client) DisableLicense(ctx context.Context, id string, req domain.LicenseActionRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, fmt.Sprintf("/api/v1/licenses/%s/disable", id), nil, req, nil)
-}
-
-func (c *Client) RevokeLicense(ctx context.Context, id string, req domain.LicenseActionRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, fmt.Sprintf("/api/v1/licenses/%s/revoke", id), nil, req, nil)
-}
-
-func (c *Client) ActivateLicense(ctx context.Context, req domain.ActivateLicenseRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, "/api/v1/licenses/activate", nil, req, nil)
-}
-
-func (c *Client) RefreshLicense(ctx context.Context, req domain.RefreshLicenseRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, "/api/v1/licenses/refresh", nil, req, nil)
-}
-
 func (c *Client) RequestNumbers(ctx context.Context, req domain.RequestNumbersRequest) ([]domain.NumberRange, error) {
 	var ranges []domain.NumberRange
 	if err := c.doJSONInto(ctx, http.MethodPost, "/v1/numbers/request", req, &ranges); err != nil {
@@ -171,10 +131,6 @@ func (c *Client) RequestNumbers(ctx context.Context, req domain.RequestNumbersRe
 
 func (c *Client) RequestNumerations(ctx context.Context, req domain.RequestNumerationsRequest) (domain.APIResponse, error) {
 	return c.doJSON(ctx, http.MethodPost, "/api/v1/numerations/request-rabbitmq", nil, req, nil)
-}
-
-func (c *Client) SyncDocument(ctx context.Context, req domain.SyncDocumentRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, "/api/v1/documents/sync", nil, req, nil)
 }
 
 func (c *Client) RequeueDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {
