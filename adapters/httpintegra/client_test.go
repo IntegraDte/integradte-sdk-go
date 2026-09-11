@@ -81,8 +81,15 @@ func TestListDocumentsSendsFilters(t *testing.T) {
 
 func TestRequestNumbersDecodesArrayResponse(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost || r.URL.Path != "/v1/numbers/request" {
+		if r.Method != http.MethodPost || r.URL.Path != "/api/v1/numerations/request" {
 			t.Fatalf("unexpected request: %s %s", r.Method, r.URL.Path)
+		}
+		var body domain.RequestNumbersRequest
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Fatalf("decode body: %v", err)
+		}
+		if body != (domain.RequestNumbersRequest{DocumentType: 33, Quantity: 2}) {
+			t.Fatalf("body = %#v; want document_type 33, quantity 2", body)
 		}
 		_ = json.NewEncoder(w).Encode([]domain.NumberRange{
 			{DocumentType: 33, InitialFolio: 100, FinalFolio: 101, FolioXMLBase64: "xml"},
@@ -102,6 +109,52 @@ func TestRequestNumbersDecodesArrayResponse(t *testing.T) {
 	want := []domain.NumberRange{{DocumentType: 33, InitialFolio: 100, FinalFolio: 101, FolioXMLBase64: "xml"}}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("request numbers = %#v; want %#v", got, want)
+	}
+}
+
+func TestCreatePurchaseUsesPurchaseAcknowledgments(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost || r.URL.Path != "/api/v1/purchase-acknowledgments" {
+			t.Fatalf("unexpected request: %s %s", r.Method, r.URL.Path)
+		}
+		if got := r.Header.Get("idempotency-key"); got != "idem-purchase-1" {
+			t.Fatalf("expected idempotency-key idem-purchase-1, got %q", got)
+		}
+		var body map[string]any
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Fatalf("decode body: %v", err)
+		}
+		if got := body["accion_doc"]; got != "ACD" {
+			t.Fatalf("accion_doc = %#v; want ACD", got)
+		}
+		for key := range body {
+			if key == "IdempotencyKey" || key == "idempotency_key" {
+				t.Fatalf("idempotency key leaked into body: %v", body)
+			}
+		}
+		_ = json.NewEncoder(w).Encode(map[string]any{"success": true})
+	}))
+	defer ts.Close()
+
+	c, err := New(Config{APIKey: "test-key", BaseURL: ts.URL})
+	if err != nil {
+		t.Fatalf("new client: %v", err)
+	}
+
+	_, err = c.CreatePurchase(context.Background(), domain.CreatePurchaseRequest{
+		XMLBase64:         "BASE64",
+		RUTEmisor:         "76123456-7",
+		RazonSocialEmisor: "Proveedor SpA",
+		TipoDTE:           "33",
+		Folio:             1234,
+		MntTotal:          "119000",
+		FechaEmision:      "2026-09-01",
+		EmailEmisor:       "dte@proveedor.cl",
+		AccionDoc:         "ACD",
+		IdempotencyKey:    "idem-purchase-1",
+	})
+	if err != nil {
+		t.Fatalf("create purchase: %v", err)
 	}
 }
 
