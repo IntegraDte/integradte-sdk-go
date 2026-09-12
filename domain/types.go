@@ -14,6 +14,15 @@ type CreateDocumentRequest struct {
 	IdempotencyKey string `json:"-"`
 }
 
+// UpdateDocumentRequest replaces a document's DTE (PUT /documents/:id). Set DataDTE (the
+// DTE serialized as a JSON string, see httpintegra.EncodeDataDTE) or DataDTEJSON (the DTE
+// as a value, or a string holding JSON). DataDTE wins when both are set.
+type UpdateDocumentRequest struct {
+	DataDTE        string `json:"data_dte,omitempty"`
+	DataDTEJSON    any    `json:"data_dte_json,omitempty"`
+	IdempotencyKey string `json:"-"`
+}
+
 // CreateCessionRequest creates a cession document.
 type CreateCessionRequest struct {
 	DocumentID       string `json:"document_id"`
@@ -24,12 +33,30 @@ type CreateCessionRequest struct {
 	IdempotencyKey   string `json:"-"`
 }
 
+// RequeueCessionRequest requeues a cession (POST /cessions/requeue).
+type RequeueCessionRequest struct {
+	CessionID string `json:"cession_id"`
+}
+
+// CessionFilter controls cession queries. DocumentID lists the cessions of one document.
+type CessionFilter struct {
+	DocumentID string
+	Page       int
+	Limit      int
+}
+
 // GeneratePDFRequest requests a PDF generation.
 type GeneratePDFRequest struct {
 	DocumentID     string `json:"document_id"`
 	Formato        string `json:"formato,omitempty"`
 	CopiaCedible   bool   `json:"copia_cedible,omitempty"`
 	IdempotencyKey string `json:"-"`
+}
+
+// LoginRequest exchanges a user's email and password for the x-user-key (POST /auth/login).
+type LoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 // CreateBusinessRequest creates a business profile.
@@ -53,6 +80,29 @@ type CreateBusinessRequest struct {
 
 // UpdateBusinessRequest updates a business profile.
 type UpdateBusinessRequest = CreateBusinessRequest
+
+// CreateFirstBusinessRequest creates the account's first business with the x-user-key
+// (POST /onboarding/businesses). Region or City is required. The resolution dates accept
+// RFC 3339 or YYYY-MM-DD. Logo is raw base64 without a data: prefix.
+type CreateFirstBusinessRequest struct {
+	BusinessName           string `json:"businessName"`
+	RUT                    string `json:"rut"`
+	Activity               string `json:"activity"`
+	Address                string `json:"address"`
+	Commune                string `json:"commune"`
+	Region                 string `json:"region,omitempty"`
+	City                   string `json:"city,omitempty"`
+	EmailDTE               string `json:"emailDte"`
+	EmailContact           string `json:"emailContact"`
+	RUTLegalAgent          string `json:"rutLegalAgent"`
+	FullNameLegalAgent     string `json:"fullNameLegalAgent"`
+	ResolutionNumberDTE    string `json:"resolutionNumberDte"`
+	ResolutionDateDTE      string `json:"resolutionDateDte"`
+	ResolutionNumberTicket string `json:"resolutionNumberTicket"`
+	ResolutionTicketDate   string `json:"resolutionTicketDate"`
+	Logo                   string `json:"logo,omitempty"`
+	LogoContentType        string `json:"logoContentType,omitempty"`
+}
 
 // ProductionModeRequest moves the authenticated business to production.
 type ProductionModeRequest struct {
@@ -81,6 +131,34 @@ type PaymentFilter struct {
 	Limit    int
 }
 
+// ChargeFilter controls billing charge queries (GET /billing/charges). Dates use YYYY-MM-DD.
+type ChargeFilter struct {
+	Status     string
+	PricingKey string
+	FromDate   string
+	ToDate     string
+	Page       int
+	Limit      int
+}
+
+// InvoiceFilter controls billing invoice queries (GET /billing/invoices). Status is open,
+// paid or void; empty returns every invoice.
+type InvoiceFilter struct {
+	Status string
+}
+
+// ConsumptionOverageFilter paginates the current cycle's overages (GET /consumption/overages).
+type ConsumptionOverageFilter struct {
+	Page  int
+	Limit int
+}
+
+// ConsumptionOperationFilter selects the month of the operations detail
+// (GET /consumption/operations). Period is YYYY-MM in UTC; empty means the current month.
+type ConsumptionOperationFilter struct {
+	Period string
+}
+
 // PurchaseAcknowledgmentFilter controls received purchase queries.
 type PurchaseAcknowledgmentFilter struct {
 	DocumentType string
@@ -93,9 +171,10 @@ type PurchaseAcknowledgmentFilter struct {
 
 // UploadCertificateRequest uploads a digital certificate.
 type UploadCertificateRequest struct {
-	Certificate string    `json:"certificate"`
-	Password    string    `json:"password"`
-	ExpiredDate time.Time `json:"expired_date"`
+	Certificate    string    `json:"certificate"`
+	Password       string    `json:"password"`
+	ExpiredDate    time.Time `json:"expired_date"`
+	IdempotencyKey string    `json:"-"`
 }
 
 // CertificateInfo is the data returned by /business/certificate-info. HasValidCertificate is
@@ -119,14 +198,49 @@ type CreatePurchaseRequest struct {
 	IdempotencyKey    string `json:"-"`
 }
 
+// RequeuePurchaseRequest requeues a purchase acknowledgment
+// (POST /purchase-acknowledgments/requeue).
+type RequeuePurchaseRequest struct {
+	PurchaseID string `json:"purchase_id"`
+}
+
 // UploadNumerationRequest uploads CAF/folios.
 type UploadNumerationRequest struct {
-	CodeSII      string `json:"code_sii"`
-	StartNumber  int    `json:"start_number"`
-	EndNumber    int    `json:"end_number"`
-	CAFBase64    string `json:"caf_base64"`
-	CreationDate string `json:"creation_date"`
-	DueDate      string `json:"due_date"`
+	CodeSII        string `json:"code_sii"`
+	StartNumber    int    `json:"start_number"`
+	EndNumber      int    `json:"end_number"`
+	CAFBase64      string `json:"caf_base64"`
+	CreationDate   string `json:"creation_date"`
+	DueDate        string `json:"due_date"`
+	IdempotencyKey string `json:"-"`
+}
+
+// NumerationRangeFilter controls GET /numerations/ranges. An empty CodeSII returns the
+// ranges of every document type.
+type NumerationRangeFilter struct {
+	CodeSII string
+}
+
+// UpdateNumerationNextNumberRequest sets the folio the next document of a CAF range gets
+// (PATCH /numerations/:numerationId/next-number).
+type UpdateNumerationNextNumberRequest struct {
+	NextNumber     int    `json:"next_number"`
+	IdempotencyKey string `json:"-"`
+}
+
+// LowStockConfigItem is the low-folio alert config of one document type. CodeSII is a
+// string ("33"). Threshold is always sent, so 0 is a valid threshold.
+type LowStockConfigItem struct {
+	CodeSII         string `json:"code_sii"`
+	Threshold       int    `json:"threshold"`
+	RequestQuantity int    `json:"request_quantity"`
+}
+
+// UpdateLowStockConfigRequest merges the low-folio config by code_sii
+// (PATCH /numerations/low-stock). Codes left out keep their current config.
+type UpdateLowStockConfigRequest struct {
+	Items          []LowStockConfigItem `json:"items"`
+	IdempotencyKey string               `json:"-"`
 }
 
 // RequestNumbersRequest reserves available folios for offline use.

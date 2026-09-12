@@ -123,3 +123,75 @@ func (s *Service) RequeueDocument(ctx context.Context, req domain.RequeueDocumen
 func (s *Service) RequeueOfflineDocumentStatus(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {
 	return s.api.RequeueOfflineDocumentStatus(ctx, req)
 }
+
+func (s *Service) GetHealth(ctx context.Context) (domain.APIResponse, error) {
+	return s.api.GetHealth(ctx)
+}
+
+func (s *Service) Login(ctx context.Context, req domain.LoginRequest) (domain.APIResponse, error) {
+	return s.api.Login(ctx, req)
+}
+
+func (s *Service) CreateFirstBusiness(ctx context.Context, userKey string, req domain.CreateFirstBusinessRequest) (domain.APIResponse, error) {
+	return s.api.CreateFirstBusiness(ctx, userKey, req)
+}
+
+func (s *Service) UpdateDocument(ctx context.Context, id string, req domain.UpdateDocumentRequest) (domain.APIResponse, error) {
+	return s.api.UpdateDocument(ctx, id, req)
+}
+
+func (s *Service) UpdateNumerationNextNumber(ctx context.Context, numerationID string, req domain.UpdateNumerationNextNumberRequest) (domain.APIResponse, error) {
+	return s.api.UpdateNumerationNextNumber(ctx, numerationID, req)
+}
+
+func (s *Service) UpdateLowStockConfig(ctx context.Context, req domain.UpdateLowStockConfigRequest) (domain.APIResponse, error) {
+	return s.api.UpdateLowStockConfig(ctx, req)
+}
+
+func (s *Service) ListNumerationRanges(ctx context.Context, filter domain.NumerationRangeFilter) (domain.APIResponse, error) {
+	return s.api.ListNumerationRanges(ctx, filter)
+}
+
+func (s *Service) RequeuePurchase(ctx context.Context, req domain.RequeuePurchaseRequest) (domain.APIResponse, error) {
+	return s.api.RequeuePurchase(ctx, req)
+}
+
+func (s *Service) ListBillingCharges(ctx context.Context, filter domain.ChargeFilter) (domain.APIResponse, error) {
+	return s.api.ListBillingCharges(ctx, filter)
+}
+
+func (s *Service) ListBillingPlans(ctx context.Context) (domain.APIResponse, error) {
+	return s.api.ListBillingPlans(ctx)
+}
+
+func (s *Service) ListBillingInvoices(ctx context.Context, filter domain.InvoiceFilter) (domain.APIResponse, error) {
+	return s.api.ListBillingInvoices(ctx, filter)
+}
+
+func (s *Service) PreviewSubscriptionUpgrade(ctx context.Context, planID string) (domain.APIResponse, error) {
+	return s.api.PreviewSubscriptionUpgrade(ctx, planID)
+}
+
+func (s *Service) GetConsumption(ctx context.Context) (domain.APIResponse, error) {
+	return s.api.GetConsumption(ctx)
+}
+
+func (s *Service) ListConsumptionOverages(ctx context.Context, filter domain.ConsumptionOverageFilter) (domain.APIResponse, error) {
+	return s.api.ListConsumptionOverages(ctx, filter)
+}
+
+func (s *Service) ListConsumptionOperations(ctx context.Context, filter domain.ConsumptionOperationFilter) (domain.APIResponse, error) {
+	return s.api.ListConsumptionOperations(ctx, filter)
+}
+
+func (s *Service) RequeueCession(ctx context.Context, req domain.RequeueCessionRequest) (domain.APIResponse, error) {
+	return s.api.RequeueCession(ctx, req)
+}
+
+func (s *Service) ListCessions(ctx context.Context, filter domain.CessionFilter) (domain.APIResponse, error) {
+	return s.api.ListCessions(ctx, filter)
+}
+
+func (s *Service) GetCession(ctx context.Context, id string) (domain.APIResponse, error) {
+	return s.api.GetCession(ctx, id)
+}
