@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.2.1...integradte-sdk-go-v0.3.0) (2026-09-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** removed from httpintegra.Client, ports.IntegraDTEAPI and application.Service: RequeueOfflineDocument and RequestNumerations. Removed domain type: RequestNumerationsRequest. RequeueDocumentRequest stays, since RequeueDocument and RequeueOfflineDocumentStatus still use it.
+
+### Features
+
+* **api:** drop offline requeue and queued numeration requests ([ad04847](https://github.com/IntegraDte/integradte-sdk-go/commit/ad04847680f162cb05c2e2cefb42237dff36718f))
+
 ## [0.2.1](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.2.0...integradte-sdk-go-v0.2.1) (2026-09-11)
 
 
