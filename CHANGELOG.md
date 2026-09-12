@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.3.0...integradte-sdk-go-v0.3.1) (2026-09-12)
+
+
+### Features
+
+* **api:** cover the full public API and always send idempotency-key ([371c116](https://github.com/IntegraDte/integradte-sdk-go/commit/371c116032119dfbd1e9005d5259e6c2f48c734a))
+* **api:** cover the full public API and always send idempotency-key ([9e85aa2](https://github.com/IntegraDte/integradte-sdk-go/commit/9e85aa2e1a7d961e7f292b01631898357ae67970))
+
 ## [0.3.0](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.2.1...integradte-sdk-go-v0.3.0) (2026-09-12)
 
 
