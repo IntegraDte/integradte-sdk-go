@@ -143,12 +143,6 @@ type NumberRange struct {
 	FolioXMLBase64 string `json:"folio_xml_base64"`
 }
 
-// RequestNumerationsRequest publishes a numeration request to RabbitMQ.
-type RequestNumerationsRequest struct {
-	CodeSII  string `json:"code_sii"`
-	Quantity int    `json:"quantity"`
-}
-
 // RequeueDocumentRequest requeues a normal or offline document.
 type RequeueDocumentRequest struct {
 	DocumentID string `json:"document_id"`

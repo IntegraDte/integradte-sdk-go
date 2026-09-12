@@ -129,16 +129,8 @@ func (c *Client) RequestNumbers(ctx context.Context, req domain.RequestNumbersRe
 	return ranges, nil
 }
 
-func (c *Client) RequestNumerations(ctx context.Context, req domain.RequestNumerationsRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, "/api/v1/numerations/request-rabbitmq", nil, req, nil)
-}
-
 func (c *Client) RequeueDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {
 	return c.doJSON(ctx, http.MethodPost, "/api/v1/documents/requeue", nil, req, nil)
-}
-
-func (c *Client) RequeueOfflineDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {
-	return c.doJSON(ctx, http.MethodPost, "/api/v1/documents/requeue/offline", nil, req, nil)
 }
 
 func (c *Client) RequeueOfflineDocumentStatus(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {

@@ -33,8 +33,6 @@ type IntegraDTEAPI interface {
 	UploadNumeration(ctx context.Context, req domain.UploadNumerationRequest) (domain.APIResponse, error)
 	DeleteNumeration(ctx context.Context, id string) (domain.APIResponse, error)
 	RequestNumbers(ctx context.Context, req domain.RequestNumbersRequest) ([]domain.NumberRange, error)
-	RequestNumerations(ctx context.Context, req domain.RequestNumerationsRequest) (domain.APIResponse, error)
 	RequeueDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error)
-	RequeueOfflineDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error)
 	RequeueOfflineDocumentStatus(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error)
 }
