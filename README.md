@@ -108,11 +108,11 @@ resp, err := service.CreateDocument(context.Background(), req)
 ## Endpoints implementados
 
 - Usuarios y empresas: `GetMe`, `CreateBusiness`, `ListBusinesses`, `GetBusiness`, `UpdateBusiness`, `EnableProductionMode`, `EnableCertificationMode`
-- Documentos: `CreateDocument`, `ListDocuments`, `GetDocument`, `GetDocumentStats`, `GetDocumentStatsWithFilter`, `RequeueDocument`, `RequeueOfflineDocument`, `RequeueOfflineDocumentStatus`
+- Documentos: `CreateDocument`, `ListDocuments`, `GetDocument`, `GetDocumentStats`, `GetDocumentStatsWithFilter`, `RequeueDocument`, `RequeueOfflineDocumentStatus`
 - Cesiones y PDF: `CreateCession`, `GeneratePDF`
 - Certificados: `UploadCertificate`, `GetCertificateInfo`
 - Billing y compras: `GetBillingBalance`, `ListBillingPayments`, `CreatePurchase`, `ListPurchaseAcknowledgments`
-- Numeraciones: `GetNumerationSummary`, `GetLastUsedFolio`, `UploadNumeration`, `DeleteNumeration`, `RequestNumbers`, `RequestNumerations`
+- Numeraciones: `GetNumerationSummary`, `GetLastUsedFolio`, `UploadNumeration`, `DeleteNumeration`, `RequestNumbers`
 
 ## Certificado digital
 

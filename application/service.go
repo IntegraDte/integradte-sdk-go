@@ -116,16 +116,8 @@ func (s *Service) RequestNumbers(ctx context.Context, req domain.RequestNumbersR
 	return s.api.RequestNumbers(ctx, req)
 }
 
-func (s *Service) RequestNumerations(ctx context.Context, req domain.RequestNumerationsRequest) (domain.APIResponse, error) {
-	return s.api.RequestNumerations(ctx, req)
-}
-
 func (s *Service) RequeueDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {
 	return s.api.RequeueDocument(ctx, req)
-}
-
-func (s *Service) RequeueOfflineDocument(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {
-	return s.api.RequeueOfflineDocument(ctx, req)
 }
 
 func (s *Service) RequeueOfflineDocumentStatus(ctx context.Context, req domain.RequeueDocumentRequest) (domain.APIResponse, error) {
