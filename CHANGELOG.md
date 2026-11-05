@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.3.1...integradte-sdk-go-v0.3.2) (2026-11-05)
+
+
+### Features
+
+* **dte:** el bloque Transporte va dentro de Encabezado y el chofer en su bloque ([ff5c5f1](https://github.com/IntegraDte/integradte-sdk-go/commit/ff5c5f126af5ea2f62cc6743be1f3a6e09756162))
+
 ## [0.3.1](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.3.0...integradte-sdk-go-v0.3.1) (2026-09-12)
 
 
