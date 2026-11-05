@@ -9,7 +9,11 @@ type Dte33Data struct {
 	Referencia   []Referencia   `json:"Referencia,omitempty"`
 	Comisiones   []Comisiones   `json:"Comisiones,omitempty"`
 	SubTotInfo   []SubTotInfo   `json:"SubTotInfo,omitempty"`
-	Transporte   *Transporte    `json:"Transporte,omitempty"`
+	// TransporteCompat recibe el bloque cuando se setea al tope del documento, que es donde
+	// lo pedian las versiones anteriores. MarshalJSON lo mueve a Encabezado.Transporte.
+	//
+	// Deprecated: usar Encabezado.Transporte.
+	TransporteCompat *Transporte `json:"-"`
 	OtraMoneda   *OtraMoneda    `json:"OtraMoneda,omitempty"`
 }
 
@@ -17,6 +21,10 @@ type Encabezado33 struct {
 	IdDoc    IdDocBase `json:"IdDoc"`
 	Emisor   Emisor    `json:"Emisor"`
 	Receptor Receptor  `json:"Receptor"`
+	// Transporte va aca, entre Receptor y Totales: es la posicion que exige la secuencia
+	// del esquema del SII.
+	Transporte *Transporte `json:"Transporte,omitempty"`
+
 	Totales  Totales   `json:"Totales"`
 }
 
@@ -27,7 +35,11 @@ type Dte34Data struct {
 	Referencia   []Referencia   `json:"Referencia,omitempty"`
 	Comisiones   []Comisiones   `json:"Comisiones,omitempty"`
 	SubTotInfo   []SubTotInfo   `json:"SubTotInfo,omitempty"`
-	Transporte   *Transporte    `json:"Transporte,omitempty"`
+	// TransporteCompat recibe el bloque cuando se setea al tope del documento, que es donde
+	// lo pedian las versiones anteriores. MarshalJSON lo mueve a Encabezado.Transporte.
+	//
+	// Deprecated: usar Encabezado.Transporte.
+	TransporteCompat *Transporte `json:"-"`
 	OtraMoneda   *OtraMoneda    `json:"OtraMoneda,omitempty"`
 }
 
@@ -35,6 +47,10 @@ type Encabezado34 struct {
 	IdDoc    IdDocBase `json:"IdDoc"`
 	Emisor   Emisor    `json:"Emisor"`
 	Receptor Receptor  `json:"Receptor"`
+	// Transporte va aca, entre Receptor y Totales: es la posicion que exige la secuencia
+	// del esquema del SII.
+	Transporte *Transporte `json:"Transporte,omitempty"`
+
 	Totales  Totales   `json:"Totales"`
 }
 
@@ -77,7 +93,11 @@ type Dte46Data struct {
 	Referencia   []Referencia   `json:"Referencia,omitempty"`
 	Comisiones   []Comisiones   `json:"Comisiones,omitempty"`
 	SubTotInfo   []SubTotInfo   `json:"SubTotInfo,omitempty"`
-	Transporte   *Transporte    `json:"Transporte,omitempty"`
+	// TransporteCompat recibe el bloque cuando se setea al tope del documento, que es donde
+	// lo pedian las versiones anteriores. MarshalJSON lo mueve a Encabezado.Transporte.
+	//
+	// Deprecated: usar Encabezado.Transporte.
+	TransporteCompat *Transporte `json:"-"`
 	OtraMoneda   *OtraMoneda    `json:"OtraMoneda,omitempty"`
 }
 
@@ -85,6 +105,10 @@ type Encabezado46 struct {
 	IdDoc    IdDocBase `json:"IdDoc"`
 	Emisor   Emisor    `json:"Emisor"`
 	Receptor Receptor  `json:"Receptor"`
+	// Transporte va aca, entre Receptor y Totales: es la posicion que exige la secuencia
+	// del esquema del SII.
+	Transporte *Transporte `json:"Transporte,omitempty"`
+
 	Totales  Totales   `json:"Totales"`
 }
 
@@ -93,7 +117,11 @@ type Dte52Data struct {
 	Detalle      []Detalle       `json:"Detalle"`
 	DscRcgGlobal []DscRcgGlobal  `json:"DscRcgGlobal,omitempty"`
 	Referencia   []Referencia    `json:"Referencia,omitempty"`
-	Transporte   *TransporteGuia `json:"Transporte,omitempty"`
+	// TransporteCompat recibe el bloque cuando se setea al tope del documento, que es donde
+	// lo pedian las versiones anteriores. MarshalJSON lo mueve a Encabezado.Transporte.
+	//
+	// Deprecated: usar Encabezado.Transporte.
+	TransporteCompat *Transporte `json:"-"`
 	Comisiones   []Comisiones    `json:"Comisiones,omitempty"`
 	SubTotInfo   []SubTotInfo    `json:"SubTotInfo,omitempty"`
 	OtraMoneda   *OtraMoneda     `json:"OtraMoneda,omitempty"`
@@ -103,6 +131,10 @@ type Encabezado52 struct {
 	IdDoc    IdDocGuia   `json:"IdDoc"`
 	Emisor   Emisor      `json:"Emisor"`
 	Receptor Receptor    `json:"Receptor"`
+	// Transporte va aca, entre Receptor y Totales: es la posicion que exige la secuencia
+	// del esquema del SII.
+	Transporte *Transporte `json:"Transporte,omitempty"`
+
 	Totales  TotalesGuia `json:"Totales"`
 }
 
@@ -113,7 +145,11 @@ type Dte56Data struct {
 	Referencia   []Referencia   `json:"Referencia,omitempty"`
 	Comisiones   []Comisiones   `json:"Comisiones,omitempty"`
 	SubTotInfo   []SubTotInfo   `json:"SubTotInfo,omitempty"`
-	Transporte   *Transporte    `json:"Transporte,omitempty"`
+	// TransporteCompat recibe el bloque cuando se setea al tope del documento, que es donde
+	// lo pedian las versiones anteriores. MarshalJSON lo mueve a Encabezado.Transporte.
+	//
+	// Deprecated: usar Encabezado.Transporte.
+	TransporteCompat *Transporte `json:"-"`
 	OtraMoneda   *OtraMoneda    `json:"OtraMoneda,omitempty"`
 }
 
@@ -121,6 +157,10 @@ type Encabezado56 struct {
 	IdDoc    IdDocBase `json:"IdDoc"`
 	Emisor   Emisor    `json:"Emisor"`
 	Receptor Receptor  `json:"Receptor"`
+	// Transporte va aca, entre Receptor y Totales: es la posicion que exige la secuencia
+	// del esquema del SII.
+	Transporte *Transporte `json:"Transporte,omitempty"`
+
 	Totales  Totales   `json:"Totales"`
 }
 
@@ -131,7 +171,11 @@ type Dte61Data struct {
 	Referencia   []Referencia   `json:"Referencia,omitempty"`
 	Comisiones   []Comisiones   `json:"Comisiones,omitempty"`
 	SubTotInfo   []SubTotInfo   `json:"SubTotInfo,omitempty"`
-	Transporte   *Transporte    `json:"Transporte,omitempty"`
+	// TransporteCompat recibe el bloque cuando se setea al tope del documento, que es donde
+	// lo pedian las versiones anteriores. MarshalJSON lo mueve a Encabezado.Transporte.
+	//
+	// Deprecated: usar Encabezado.Transporte.
+	TransporteCompat *Transporte `json:"-"`
 	OtraMoneda   *OtraMoneda    `json:"OtraMoneda,omitempty"`
 }
 
@@ -139,5 +183,9 @@ type Encabezado61 struct {
 	IdDoc    IdDocBase `json:"IdDoc"`
 	Emisor   Emisor    `json:"Emisor"`
 	Receptor Receptor  `json:"Receptor"`
+	// Transporte va aca, entre Receptor y Totales: es la posicion que exige la secuencia
+	// del esquema del SII.
+	Transporte *Transporte `json:"Transporte,omitempty"`
+
 	Totales  Totales   `json:"Totales"`
 }

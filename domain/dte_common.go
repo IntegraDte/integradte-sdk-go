@@ -175,24 +175,47 @@ type Referencia struct {
 	RazonRef  string `json:"RazonRef,omitempty"`
 }
 
-type Transporte struct {
-	Patente      string `json:"Patente,omitempty"`
-	RUTTrans     string `json:"RUTTrans,omitempty"`
+// Chofer identifica a quien conduce. El esquema del SII lo exige como bloque propio dentro de
+// Transporte, no como campos planos.
+type Chofer struct {
+	RUTChofer    string `json:"RUTChofer,omitempty"`
 	NombreChofer string `json:"NombreChofer,omitempty"`
-	DirDest      string `json:"DirDest,omitempty"`
-	CmnaDest     string `json:"CmnaDest,omitempty"`
 }
 
-type TransporteGuia struct {
-	Patente      string `json:"Patente,omitempty"`
-	RUTTrans     string `json:"RUTTrans,omitempty"`
-	NombreChofer string `json:"NombreChofer,omitempty"`
-	RUTChofer    string `json:"RUTChofer,omitempty"`
-	NroLicencia  string `json:"NroLicencia,omitempty"`
-	DirDest      string `json:"DirDest,omitempty"`
-	CmnaDest     string `json:"CmnaDest,omitempty"`
-	CiudadDest   string `json:"CiudadDest,omitempty"`
+// Transporte es el bloque de transporte del documento, que va DENTRO de Encabezado, entre
+// Receptor y Totales.
+//
+// PatenteCarro, FchSalida, HraSalida y FchLlegada los agrego el Formato DTE v2.5 (2026-02) y
+// la Res. Ex. SII N 144 de 2026 los volvio obligatorios para los documentos que amparan
+// traslado de bienes. Aca son opcionales porque la API todavia no los exige.
+//
+// El SII valida los formatos al caracter: FchSalida y FchLlegada en AAAA-MM-DD, y HraSalida en
+// HH:MM:SS con segundos y ceros a la izquierda. Tanto "08:30" como "8:30:00" se rechazan.
+type Transporte struct {
+	Patente      string  `json:"Patente,omitempty"`
+	PatenteCarro string  `json:"PatenteCarro,omitempty"`
+	RUTTrans     string  `json:"RUTTrans,omitempty"`
+	Chofer       *Chofer `json:"Chofer,omitempty"`
+	DirDest      string  `json:"DirDest,omitempty"`
+	CmnaDest     string  `json:"CmnaDest,omitempty"`
+	CiudadDest   string  `json:"CiudadDest,omitempty"`
+	FchSalida    string  `json:"FchSalida,omitempty"`
+	HraSalida    string  `json:"HraSalida,omitempty"`
+	FchLlegada   string  `json:"FchLlegada,omitempty"`
+
+	// Deprecated: usar Chofer.NombreChofer. Se acepta y se mueve al serializar.
+	NombreChofer string `json:"-"`
+	// Deprecated: usar Chofer.RUTChofer. Se acepta y se mueve al serializar.
+	RUTChofer string `json:"-"`
+	// Deprecated: el SII no lo declara en ningun esquema. Se descarta al serializar.
+	NroLicencia string `json:"-"`
 }
+
+// TransporteGuia era el bloque propio de la guia (52). El esquema del SII define un unico
+// Transporte igual para todos los tipos.
+//
+// Deprecated: usar Transporte.
+type TransporteGuia = Transporte
 
 type SubTotInfo struct {
 	NroSTI      int    `json:"NroSTI,omitempty"`
