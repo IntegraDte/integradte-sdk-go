@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/IntegraDte/integradte-sdk-go/compare/v0.3.2...v0.3.3) (2026-11-11)
+
+
+### Bug Fixes
+
+* **release:** etiqueta las versiones como vX.Y.Z para que Go las resuelva ([9f71215](https://github.com/IntegraDte/integradte-sdk-go/commit/9f71215ba7eda5f0a53e2511b01045be605652e1))
+
 ## [0.3.2](https://github.com/IntegraDte/integradte-sdk-go/compare/integradte-sdk-go-v0.3.1...integradte-sdk-go-v0.3.2) (2026-11-05)
 
 
